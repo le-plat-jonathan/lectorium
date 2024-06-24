@@ -1,4 +1,6 @@
 <?php
+include 'cors.php';
+
 $host = 'localhost';
 $db = 'lectorium';
 $user = 'root';
