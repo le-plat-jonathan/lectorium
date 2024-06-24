@@ -7,13 +7,18 @@ class Order {
         $this->pdo = $pdo;
     }
 
+    // création d'un ticket à la commande
     public function create($total, $user_id) {
-        $sql = "INSERT INTO `order` (total, created_at, user_id) VALUES (total :total, NOW(), user_id :user_id)";
+        $sql = "INSERT INTO `order` (total, created_at, user_id) VALUES (:total, NOW(), :user_id)";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$total, $user_id]);
+        $stmt->execute([
+            ':total' => $total,
+            ':user_id' => $user_id
+        ]);
         return ['message' => 'Order created successfully'];
     }
 
+    // récupération de la commande par son id
     public function getById($id) {
         $sql = "SELECT * FROM `order` WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
@@ -21,18 +26,12 @@ class Order {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update($id, $total) {
-        $sql = "UPDATE `order` SET total = ? WHERE id = ?";
+    // récupération de toutes les commandes d'un utilisateur
+    public function getByUserId($user_id) {
+        $sql = "SELECT * FROM `order` WHERE user_id = ?";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$total, $id]);
-        return ['message' => 'Order updated successfully'];
-    }
-
-    public function delete($id) {
-        $sql = "DELETE FROM `order` WHERE id = ?";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$id]);
-        return ['message' => 'Order deleted successfully'];
+        $stmt->execute([$user_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 ?>

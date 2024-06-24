@@ -7,13 +7,23 @@ class Cart {
         $this->pdo = $pdo;
     }
 
+    // ajout d'un item au panier
     public function add($book_id, $quantity, $user_id) {
-        $sql = "INSERT INTO cart (book_id, quantity, user_id) VALUES (book_id :book_id, quantity :quantity, user_id :user_id)";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$book_id, $quantity, $user_id]);
-        return ['message' => 'Item added to cart successfully'];
+        try {
+            $sql = "INSERT INTO cart (book_id, quantity, user_id) VALUES (:book_id, :quantity, :user_id)";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([
+                ':book_id' => $book_id,
+                ':quantity' => $quantity,
+                ':user_id' => $user_id
+            ]);
+            return ['message' => 'Item added to cart successfully'];
+        } catch (PDOException $e) {
+            return ['message' => 'Failed to add item to cart: ' . $e->getMessage()];
+        }
     }
 
+    // récupération du panier de l'utilisateur par son id
     public function getByUserId($user_id) {
         $sql = "SELECT * FROM cart WHERE user_id = ?";
         $stmt = $this->pdo->prepare($sql);
@@ -21,6 +31,7 @@ class Cart {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // modification de la quantité d'un item dans le panier
     public function update($id, $quantity) {
         $sql = "UPDATE cart SET quantity = ? WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
@@ -28,6 +39,7 @@ class Cart {
         return ['message' => 'Cart updated successfully'];
     }
 
+    // suppression d'un item du panier
     public function remove($id) {
         $sql = "DELETE FROM cart WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
