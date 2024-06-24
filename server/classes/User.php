@@ -8,9 +8,17 @@ class User {
     }
 
     public function create($email, $password, $firstname, $lastname, $address, $zip_code, $city) {
-        $sql = "INSERT INTO user (email, password, firstname, lastname, address, zip_code, city, created_at) VALUES (email :email, password :password, firstname :firstname, lastname :lastname, address :address, zip_code :zip_code, city :city, NOW())";
+        $sql = "INSERT INTO user (email, password, firstname, lastname, address, zip_code, city, created_at) VALUES (:email, :password, :firstname, :lastname, :address, :zip_code, :city, NOW())";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$email, password_hash($password, PASSWORD_DEFAULT), $firstname, $lastname, $address, $zip_code, $city]);
+        $stmt->execute([
+            ':email' => $email,
+            ':password' => password_hash($password, PASSWORD_DEFAULT),
+            ':firstname' => $firstname,
+            ':lastname' => $lastname,
+            ':address' => $address,
+            ':zip_code' => $zip_code,
+            ':city' => $city
+        ]);
         return ['message' => 'User created successfully'];
     }
 
