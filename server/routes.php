@@ -1,15 +1,5 @@
 <?php
 
-// Headers pour gérer les requêtes CORS
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
-
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-    http_response_code(200);
-    exit();
-}
-
 include_once 'cors.php';
 include_once 'db.php';
 include_once 'classes/User.php';
@@ -28,7 +18,7 @@ try {
 
 $request_method = $_SERVER['REQUEST_METHOD'];
 $request_uri = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
-$action = isset($request_uri[1]) ? $request_uri[1] : '';
+$endpoint = isset($request_uri[1]) ? $request_uri[1] : '';
 $id = isset($request_uri[2]) ? $request_uri[2] : null;
 
 // Création des objets
@@ -40,16 +30,16 @@ $cart = new Cart($pdo);
 // gestion des requêtes en fonction de la méthode
 switch ($request_method) {
     case 'POST':
-        handlePostRequest($action);
+        handlePostRequest($endpoint);
         break;
     case 'GET':
-        handleGetRequest($action, $id);
+        handleGetRequest($endpoint, $id);
         break;
     case 'PUT':
-        handlePutRequest($action, $id);
+        handlePutRequest($endpoint, $id);
         break;
     case 'DELETE':
-        handleDeleteRequest($action, $id);
+        handleDeleteRequest($endpoint, $id);
         break;
     default:
         echo json_encode(['message' => 'Invalid request method.']);
@@ -57,11 +47,11 @@ switch ($request_method) {
 }
 
 // gestion des requêtes POST
-function handlePostRequest($action) {
+function handlePostRequest($endpoint) {
     global $user, $order, $account, $cart;
     $input = json_decode(file_get_contents('php://input'), true);
 
-    switch ($action) {
+    switch ($endpoint) {
         case 'register':
             echo json_encode($user->create($input['email'], $input['password'], $input['firstname'], $input['lastname'], $input['address'], $input['zip_code'], $input['city']));
             break;
@@ -107,9 +97,9 @@ function handleLoginRequest($email, $password) {
 }
 
 // gestion des requêtes GET
-function handleGetRequest($action, $id) {
+function handleGetRequest($endpoint, $id) {
     global $user, $order, $account, $cart;
-    switch ($action) {
+    switch ($endpoint) {
         case 'get_user':
             echo json_encode($user->getById($id));
             break;
@@ -132,11 +122,11 @@ function handleGetRequest($action, $id) {
 }
 
 // gestion des requêtes PUT
-function handlePutRequest($action, $id) {
+function handlePutRequest($endpoint, $id) {
     global $user, $order, $account, $cart;
     $input = json_decode(file_get_contents('php://input'), true);
 
-    switch ($action) {
+    switch ($endpoint) {
         case 'update_user':
             echo json_encode($user->update($id, $input['email'], $input['password'], $input['firstname'], $input['lastname'], $input['address'], $input['zip_code'], $input['city']));
             break;
@@ -145,7 +135,10 @@ function handlePutRequest($action, $id) {
             break;
         case 'update_cart':
             echo json_encode($cart->update($id, $input['quantity']));
-            break;  
+            break;
+        case 'put_aside':
+            echo json_encode($cart->putAside($id));
+            break;
         default:
             echo json_encode(['message' => 'Invalid PUT action.']);
             break;
@@ -153,10 +146,10 @@ function handlePutRequest($action, $id) {
 }
 
 // gestion des requêtes DELETE
-function handleDeleteRequest($action, $id) {
+function handleDeleteRequest($endpoint, $id) {
     global $user, $order, $account, $cart;
 
-    switch ($action) {
+    switch ($endpoint) {
         case 'delete_user':
             echo json_encode($user->delete($id));
             break;

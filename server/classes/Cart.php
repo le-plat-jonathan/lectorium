@@ -10,7 +10,7 @@ class Cart {
     // ajout d'un item au panier
     public function add($book_id, $quantity, $user_id) {
         try {
-            $sql = "INSERT INTO cart (book_id, quantity, user_id) VALUES (:book_id, :quantity, :user_id)";
+            $sql = "INSERT INTO cart (book_id, quantity, user_id, aside) VALUES (:book_id, :quantity, :user_id, 0)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([
                 ':book_id' => $book_id,
@@ -46,5 +46,18 @@ class Cart {
         $stmt->execute([$id]);
         return ['message' => 'Item removed from cart successfully'];
     }
+
+    // mettre de côté un item du panier
+    public function putAside($id) {
+        try {
+            $sql = "UPDATE cart SET aside = 1 WHERE id = ?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$id]);
+            return ['message' => 'Item put aside successfully'];
+        } catch (PDOException $e) {
+            return ['message' => 'Failed to put the item aside: ' . $e->getMessage()];
+        }
+    }
+
 }
 ?>
