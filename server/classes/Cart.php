@@ -59,5 +59,17 @@ class Cart {
         }
     }
 
+    // retirer de côté un item du panier
+    public function removeAside($id) {
+        try {
+            $sql = "UPDATE cart SET aside = 0 WHERE id = ?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$id]);
+            return ['message' => 'Item removed from aside successfully'];
+        } catch (PDOException $e) {
+            return ['message' => 'Failed to remove the item from aside: ' . $e->getMessage()];
+        }
+    }
 }
+
 ?>

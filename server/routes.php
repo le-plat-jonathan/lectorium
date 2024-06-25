@@ -139,6 +139,9 @@ function handlePutRequest($endpoint, $id) {
         case 'put_aside':
             echo json_encode($cart->putAside($id));
             break;
+        case 'remove_aside':
+            echo json_encode($cart->removeAside($id));
+            break;
         default:
             echo json_encode(['message' => 'Invalid PUT action.']);
             break;
