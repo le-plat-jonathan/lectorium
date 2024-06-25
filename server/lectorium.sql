@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 24 juin 2024 à 13:49
+-- Généré le : mar. 25 juin 2024 à 13:55
 -- Version du serveur : 8.3.0
 -- Version de PHP : 8.2.18
 
@@ -51,18 +51,21 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `book_id` int NOT NULL,
   `quantity` int NOT NULL,
   `user_id` int NOT NULL,
+  `aside` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `fk_user` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `cart`
 --
 
-INSERT INTO `cart` (`id`, `book_id`, `quantity`, `user_id`) VALUES
-(1, 2, 4, 2),
-(2, 1, 3, 2),
-(3, 25, 1, 2);
+INSERT INTO `cart` (`id`, `book_id`, `quantity`, `user_id`, `aside`) VALUES
+(1, 2, 4, 2, 0),
+(2, 1, 3, 2, 0),
+(5, 60, 1, 2, 1),
+(6, 22, 6, 2, 0),
+(7, 145, 9, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -104,9 +107,9 @@ CREATE TABLE IF NOT EXISTS `user` (
   `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `zip_code` int NOT NULL,
   `City` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `user`
