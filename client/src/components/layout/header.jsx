@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/logo.png";
 import { Separator } from "../ui/separator";
+import { ButtonAuth } from "./auth/btn-auth";
 import { List } from "./list";
 import { SearchBar } from "./search-bar";
 
@@ -37,7 +38,7 @@ export const Header = () => {
             </div>
             <div className="hidden md:flex items-center gap-4">
               <List />
-              <i className="ri-user-line"></i>
+              <ButtonAuth />
             </div>
             <button className="md:hidden" onClick={toggleMenu}>
               <i className="ri-menu-line"></i>
