@@ -90,7 +90,10 @@ function handleLoginRequest($email, $password) {
         $_SESSION['user_id'] = $result['id'];
         $_SESSION['firstname'] = $result['firstname'];
         $_SESSION['lastname'] = $result['lastname'];
-        return ['message' => 'Login successful.'];
+        return ['message' => 'Login successful.',
+                'user_id' => $result['id']
+        ];
+        
     } else {
         return ['message' => 'Login failed.'];
     }

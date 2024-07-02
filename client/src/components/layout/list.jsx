@@ -21,20 +21,26 @@ const fetchBooks = async (query) => {
   return response.json();
 };
 
-export const List = ({ user_id }) => {
+export const List = () => {
   const [cartItems, setCartItems] = useState([]);
   const [bookDetails, setBookDetails] = useState([]);
 
   useEffect(() => {
     const fetchCartItems = async () => {
+      const userId = localStorage.getItem('user_id');
+      if (!userId) {
+        console.error('User ID not found in localStorage');
+        return;
+      }
+
       try {
-        const response = await fetch(`http://localhost:8000/routes.php/get_cart/2`);
+        const response = await fetch(`http://localhost:8000/routes.php/get_cart/${userId}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
         setCartItems(data);
-        
+
         const bookDetailsPromises = data.map(async (item) => {
           const bookData = await fetchBooks(item.book_id);
           const bookInfo = bookData.items[0].volumeInfo;
@@ -55,7 +61,7 @@ export const List = ({ user_id }) => {
     };
 
     fetchCartItems();
-  }, [user_id]);
+  }, []);
 
   const handleRemoveItem = (bookId) => {
     setBookDetails((prevDetails) => prevDetails.filter(item => item.id !== bookId));

@@ -3,7 +3,6 @@ import { Button } from "../ui/button";
 
 export default function ListProduct({ books }) {
   const products = books;
-  console.log(products);
   return (
     <div className="grid grid-cols-1 gap-6 p-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {products.map((product) => (
@@ -30,7 +29,7 @@ export default function ListProduct({ books }) {
             </p>
             <div className="flex items-center justify-between">
               <h4 className="text-base font-semibold">5,99€</h4>
-              <Button size="sm">Add to Cart</Button>
+              <Button type="submit" size="sm">Ajouter au panier</Button>
             </div>
           </div>
         </div>

@@ -1,14 +1,9 @@
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import {Card,CardContent,CardDescription,CardHeader,CardTitle,} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AuthContext } from "@/context/auth.context";
+import { client } from "@/utils/http";
 import { useMutation } from "@tanstack/react-query";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -23,9 +18,11 @@ export const LoginFormPage = () => {
         data: user,
       }),
     onSuccess: (data) => {
+      console.log(data);
       login(data.user_id);
       if (!authError) {
-        navigate("/user");
+        navigate("/");
+        window.location.reload()
       }
     },
     onError: () => {
@@ -45,7 +42,7 @@ export const LoginFormPage = () => {
   };
 
   return (
-    <div className="h-screen flex justify-center items-center">
+    <div className="h-90% flex justify-center items-center">
       <Card className="mx-auto max-w-sm">
         <CardHeader>
           <CardTitle className="text-2xl text-center">Connexion</CardTitle>

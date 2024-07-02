@@ -2,7 +2,7 @@ export default function WhoWeAre() {
   return (
     <section
       id="who-we-are"
-      className=" container w-full py-12 md:py-24 lg:py-32"
+      className=" container w-full py-12 md:py-24 lg:py-18"
     >
       <div className=" grid items-center justify-center gap-8 px-4 text-center md:px-6 lg:grid-cols-2 lg:text-left">
         <div className="space-y-4">
@@ -27,7 +27,7 @@ export default function WhoWeAre() {
           alt="Company Image"
           width={480}
           height={480}
-          className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full"
+          className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-11/12"
         />
       </div>
     </section>

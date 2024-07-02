@@ -1,4 +1,5 @@
 export const setSession = (user_id) => {
+  console.log(user_id);
   localStorage.setItem("user_id", user_id);
 };
 

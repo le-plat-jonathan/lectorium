@@ -15,7 +15,7 @@ export const Header = () => {
 
   return (
     <>
-      <header className="fixed z-20 left-0 right-0 top-0 bg-background">
+      <header className="sticky z-20 left-0 right-0 top-0 bg-background">
         <div className="container mx-auto p-4">
           <div className="flex justify-between items-center">
             <SearchBar />

@@ -23,7 +23,7 @@ export const SignupForm = () => {
       console.log(data);
       login(data.token);
       if (!authError) {
-        navigate("/user");
+        navigate("/");
       }
     },
   });
