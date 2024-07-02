@@ -99,7 +99,7 @@ export const ItemList = ({ item, onRemove }) => {
   };
 
   const handleRemoveItem = async () => {
-    const bookId = item.book_id;
+    const bookId = item.id;
     try {
       const response = await fetch(`http://localhost:8000/routes.php/remove_from_cart/${bookId}`, {
         method: 'DELETE',
@@ -121,15 +121,16 @@ export const ItemList = ({ item, onRemove }) => {
   };
 
   return (
-    <div className="flex items-center justify-between mb-3">
-      <div className="flex items-center">
-        <img src={item.thumbnail} alt={item.title} className="w-16 h-16 mr-4" />
+    <div className="flex items-center justify-between mb-3 p-4 border border-gray-400">
+      <img src={item.thumbnail} alt={item.title} className="w-16 h-16 mr-4" />
+      <div className="flex-column items-center gap-2">
         <div>
           <h3 className="text-lg font-semibold">{item.title}</h3>
           <p className="text-sm text-muted-foreground">{item.categories.join(', ')}</p>
         </div>
+        <p className="ml-4 text-lg font-semibold">{item.price}€</p>
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex-column items-center gap-2">
         <Button size="icon" variant="outline" onClick={handleReduceClick}>
           <MinusIcon className="h-4 w-4" />
           <span className="sr-only">Réduire la quantité</span>
@@ -139,9 +140,7 @@ export const ItemList = ({ item, onRemove }) => {
           <PlusIcon className="h-4 w-4" />
           <span className="sr-only">Augmenter la quantité</span>
         </Button>
-        <p className="ml-4 text-lg font-semibold">{item.price}€</p>
         <Button
-          size="icon"
           variant="outline"
           onClick={isAside ? handleRemoveAside : handlePutAside}
         >

@@ -58,7 +58,7 @@ export const List = ({ user_id }) => {
   }, [user_id]);
 
   const handleRemoveItem = (bookId) => {
-    setBookDetails((prevDetails) => prevDetails.filter(item => item.book_id !== bookId));
+    setBookDetails((prevDetails) => prevDetails.filter(item => item.id !== bookId));
   };
 
   return (
