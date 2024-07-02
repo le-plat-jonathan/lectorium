@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 
 export default function ListProduct({ books }) {
   const products = books;
+<<<<<<< HEAD
   console.log(products);
   return (
     <div className="grid grid-cols-1 gap-6 p-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -17,6 +18,18 @@ export default function ListProduct({ books }) {
           <img
             src={product.volumeInfo.imageLinks.thumbnail}
             alt="Product 1"
+=======
+  return (
+    <div className="grid grid-cols-1 gap-6 p-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {products.map((product) => (
+        <div key={product.id} className="relative overflow-hidden rounded-lg shadow-lg group">
+          <Link to="#" className="absolute inset-0 z-10" prefetch="false">
+            <span className="sr-only">View</span>
+          </Link>
+          <img
+            src={product.volumeInfo.imageLinks?.thumbnail}
+            alt={product.volumeInfo.title}
+>>>>>>> john
             width={400}
             height={300}
             className="object-contain w-full h-60"
@@ -26,11 +39,19 @@ export default function ListProduct({ books }) {
               {product.volumeInfo.title}
             </h3>
             <p className="text-sm text-muted-foreground">
+<<<<<<< HEAD
               {product.volumeInfo.categories[0]}
             </p>
             <div className="flex items-center justify-between">
               <h4 className="text-base font-semibold">5,99€</h4>
               <Button size="sm">Add to Cart</Button>
+=======
+              {product.volumeInfo.categories?.[0]}
+            </p>
+            <div className="flex items-center justify-between">
+              <h4 className="text-base font-semibold">5,99€</h4>
+              <Button size="sm">Ajouter au panier</Button>
+>>>>>>> john
             </div>
           </div>
         </div>

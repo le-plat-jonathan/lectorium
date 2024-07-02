@@ -6,7 +6,11 @@ import {
 export const Hero = () => {
   return (
     <section className="">
+<<<<<<< HEAD
       <div className="mt-32">
+=======
+      <div className="container mt-32">
+>>>>>>> john
         <Carousel
           opts={{
             align: "start",

@@ -2,7 +2,11 @@ export default function WhoWeAre() {
   return (
     <section
       id="who-we-are"
+<<<<<<< HEAD
       className=" container w-full py-12 md:py-24 lg:py-32"
+=======
+      className=" container w-full py-6 md:py-24 lg:py-32"
+>>>>>>> john
     >
       <div className=" grid items-center justify-center gap-8 px-4 text-center md:px-6 lg:grid-cols-2 lg:text-left">
         <div className="space-y-4">
