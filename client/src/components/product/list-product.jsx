@@ -11,7 +11,7 @@ export default function ListProduct({ books }) {
           key={product.volumeInfo.title}
           className="relative overflow-hidden rounded-lg shadow-lg group"
         >
-          <Link href="#" className="absolute inset-0 z-10" prefetch={false}>
+          <Link href="#" className="absolute inset-0 z-10" prefetch="false">
             <span className="sr-only">View</span>
           </Link>
           <img
