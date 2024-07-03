@@ -54,10 +54,11 @@ export default function ListProduct({ books }) {
             <div className="flex items-center justify-between">
               <h4 className="text-base font-semibold">5,99€</h4>
               <Button 
+                className="absolute bottom-2 right-2"
                 type="button" 
                 size="sm"
                 onClick={() => handleAddToCart(product.id)}
-              >
+                >
                 Ajouter au panier
               </Button>
             </div>
