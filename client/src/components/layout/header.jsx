@@ -32,9 +32,9 @@ export const Header = () => {
               <a className="hover:text-primary" href="#who-we-are">
                 A propos
               </a>
-              <Link className="hover:text-primary" to="/contact">
+              <a className="hover:text-primary" href="#contact">
                 Contact
-              </Link>
+              </a>
             </div>
             <div className="hidden md:flex items-center gap-4">
               <List />
@@ -55,9 +55,9 @@ export const Header = () => {
               <a className="hover:text-primary" href="#who-we-are">
                 A propos
               </a>
-              <Link className="hover:text-primary" to="/contact">
+              <a className="hover:text-primary" href="#contact">
                 Contact
-              </Link>
+              </a>
               <div className="flex items-center gap-4">
                 <List />
               </div>

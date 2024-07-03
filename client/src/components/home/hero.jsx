@@ -34,7 +34,7 @@ export const Hero = () => {
   }, []);
 
   return (
-    <section className="">
+    <section id="hero-anchor" className="">
       <div className="">
         <Carousel
           opts={{

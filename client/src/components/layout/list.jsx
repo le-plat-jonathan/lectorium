@@ -75,7 +75,7 @@ export const List = () => {
           <i className="ri-shopping-cart-line"></i>
         </div>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="scrollable-content">
         <SheetHeader>
           <SheetTitle>Panier :</SheetTitle>
           <SheetDescription>
@@ -85,9 +85,10 @@ export const List = () => {
           </SheetDescription>
         </SheetHeader>
         <SheetFooter>
-          <Button className="absolute bottom-3 left-2 right-2">Procéder au paiement</Button>
+          <Button className="">Procéder au paiement</Button>
         </SheetFooter>
       </SheetContent>
     </Sheet>
   );
 };
+  

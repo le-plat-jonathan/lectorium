@@ -6,7 +6,7 @@ export default function ListProduct({ books }) {
     console.log(`Adding product ${productId} to cart for user ${userId}`);
 
     const data = {
-      product_id: productId,
+      book_id: productId,
       user_id: userId,
       quantity: 1,
     };
