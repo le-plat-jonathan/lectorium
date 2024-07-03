@@ -118,22 +118,23 @@ function handleGetRequest($endpoint, $id) {
         case 'get_all_rates':
             echo json_encode($rate->getAllByBookId($id));
             break;
-            case 'get_user_rate':
-                $request_uri = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
-                $user_id = isset($request_uri[2]) ? $request_uri[2] : null;
-                $book_id = isset($request_uri[3]) ? $request_uri[3] : null;
-                
-                if ($user_id && $book_id) {
-                    echo json_encode($rate->getByUserAndBookId($user_id, $book_id));
-                } else {
-                    echo json_encode(['message' => 'Missing user_id or book_id.']);
-                }
-                break;
+        case 'get_user_rate':
+            $request_uri = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
+            $user_id = isset($request_uri[2]) ? $request_uri[2] : null;
+            $book_id = isset($request_uri[3]) ? $request_uri[3] : null;
+            
+            if ($user_id && $book_id) {
+                echo json_encode($rate->getByUserAndBookId($user_id, $book_id));
+            } else {
+                echo json_encode(['message' => 'Missing user_id or book_id.']);
+            }
+            break;
         default:
             echo json_encode(['message' => 'Invalid GET action.']);
             break;
     }
 }
+
 
 // gestion des requêtes PUT
 function handlePutRequest($endpoint, $id) {

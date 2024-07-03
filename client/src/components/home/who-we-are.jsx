@@ -5,11 +5,11 @@ export default function WhoWeAre() {
       className=" container w-full py-12 md:py-24 lg:py-18"
     >
       <div className=" grid items-center justify-center gap-8 px-4 text-center md:px-6 lg:grid-cols-2 lg:text-left">
-        <div className="space-y-4">
-          <h2 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
+        <div className="">
+          <h2 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl bgF3 p-4 rounded-tl-xl rounded-tr-xl">
             QUI SOMMES-NOUS?
           </h2>
-          <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:mx-0">
+          <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:mx-0 bgF3 p-4 rounded-bl-xl rounded-br-xl">
             Bienvenue sur notre site e-commerce dédié à la vente de livres !
             Notre mission est de vous offrir une expérience d'achat en ligne
             simple, agréable et enrichissante, tout en ayant un impact positif

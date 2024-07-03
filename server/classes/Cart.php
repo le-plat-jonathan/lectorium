@@ -11,13 +11,13 @@ class Cart {
     public function add($book_id, $quantity, $user_id) {
         try {
             // Validation des entrées
-            if (!is_numeric($book_id) || !is_numeric($quantity) || !is_numeric($user_id)) {
+            if (!is_string($book_id) || !is_numeric($quantity) || !is_numeric($user_id)) {
                 throw new InvalidArgumentException('Invalid input');
             }
-
+    
             // à l'ajout d'un item au panier, on s'assure que toutes les opérations se déroulent correctement grâce à une transaction
             $this->pdo->beginTransaction();
-
+    
             $sql = "INSERT INTO cart (book_id, quantity, user_id, aside) VALUES (:book_id, :quantity, :user_id, 0)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([
@@ -37,6 +37,7 @@ class Cart {
             return ['message' => $e->getMessage()];
         }
     }
+    
 
     // récupération du panier de l'utilisateur par son id
     public function getByUserId($user_id) {

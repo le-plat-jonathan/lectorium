@@ -63,3 +63,7 @@
   width: 30rem;
   object-fit: contain;
 }
+
+.bgF3 {
+  background-color: #F3F3F3;
+}

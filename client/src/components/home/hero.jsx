@@ -40,8 +40,8 @@ export const Hero = () => {
           opts={{
             align: "start",
             loop: true,
-          }}
-          className="w-full h-full overflow-hidden bg-slate-300"
+          }} 
+          className="w-full h-full overflow-hidden bgF3"
         >
           <CarouselContent>
             {books.map((book, index) => (

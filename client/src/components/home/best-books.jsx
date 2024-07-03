@@ -9,12 +9,13 @@ const fetchBooks = async (query) => {
     throw new Error("Network response was not ok");
   }
   return response.json();
+  
 };
 
 export const BestBook = () => {
   const { data, error, isLoading } = useQuery({
-    queryKey: ["books"],
-    queryFn: fetchBooks,
+    queryKey: ["books", "best"],
+    queryFn: () => fetchBooks("best"),
   });
 
   if (isLoading) return <div>Loading...</div>;
@@ -24,7 +25,7 @@ export const BestBook = () => {
       <h2 className="text-xl font-bold tracking-tighter sm:text-2xl md:text-3xl text-center mb-8">
         Nos meilleures ventes
       </h2>
-      <ListProduct books={data.items} />
+      {data && data.items && <ListProduct books={data.items} />}
     </section>
   );
 };

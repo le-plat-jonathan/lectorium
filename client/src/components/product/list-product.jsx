@@ -1,21 +1,45 @@
-import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 
 export default function ListProduct({ books }) {
-  const products = books;
+  const handleAddToCart = async (productId) => {
+    const userId = localStorage.getItem('user_id');
+    console.log(`Adding product ${productId} to cart for user ${userId}`);
+
+    const data = {
+      product_id: productId,
+      user_id: userId,
+      quantity: 1,
+    };
+    console.log(data);
+    try {
+      const response = await fetch('http://localhost:8000/routes.php/add_to_cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        console.log('Produit ajouté au panier avec succès');
+      } else {
+        console.error('Erreur lors de l\'ajout au panier', response.statusText);
+      }
+    } catch (error) {
+      console.error('Erreur lors de la requête:', error);
+    }
+  };
+  
   return (
     <div className="grid grid-cols-1 gap-6 p-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {products.map((product) => (
+      {books.map((product) => (
         <div
-          key={product.volumeInfo.title}
+          key={product.id}
           className="relative overflow-hidden rounded-lg shadow-lg group"
         >
-          <Link href="#" className="absolute inset-0 z-10" prefetch="false">
-            <span className="sr-only">View</span>
-          </Link>
           <img
-            src={product.volumeInfo.imageLinks.thumbnail}
-            alt="Product 1"
+            src={product.volumeInfo.imageLinks?.thumbnail || 'default_thumbnail.jpg'}
+            alt={product.volumeInfo.title}
             width={400}
             height={300}
             className="object-contain w-full h-60"
@@ -25,34 +49,21 @@ export default function ListProduct({ books }) {
               {product.volumeInfo.title}
             </h3>
             <p className="text-sm text-muted-foreground">
-              {product.volumeInfo.categories[0]}
+              {product.volumeInfo.categories && product.volumeInfo.categories[0]}
             </p>
             <div className="flex items-center justify-between">
               <h4 className="text-base font-semibold">5,99€</h4>
-              <Button type="submit" size="sm">Ajouter au panier</Button>
+              <Button 
+                type="button" 
+                size="sm"
+                onClick={() => handleAddToCart(product.id)}
+              >
+                Ajouter au panier
+              </Button>
             </div>
           </div>
         </div>
       ))}
     </div>
-  );
-}
-
-function StarIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-    </svg>
   );
 }
