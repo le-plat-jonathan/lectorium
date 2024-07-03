@@ -3,7 +3,7 @@ import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carouse
 
 const fetchBooks = async (query) => {
   const response = await fetch(
-    `https://www.googleapis.com/books/v1/volumes?q=intitle:${query}&maxResults=6&key=AIzaSyAmJjDBjk107C8ol7r8VDvgTsdkOitLJA0`
+    `https://www.googleapis.com/books/v1/volumes?q=maxResults=6&key=AIzaSyAmJjDBjk107C8ol7r8VDvgTsdkOitLJA0`
   );
   if (!response.ok) {
     throw new Error("Network response was not ok");
@@ -23,7 +23,7 @@ export const Hero = () => {
   useEffect(() => {
     const fetchRandomBooks = async () => {
       try {
-        const books = await fetchBooks("javascript");
+        const books = await fetchBooks();
         setBooks(books.sort(() => 0.5 - Math.random()).slice(0, 4));
       } catch (error) {
         console.error("Error fetching books:", error);

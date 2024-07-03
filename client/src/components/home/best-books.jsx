@@ -15,7 +15,7 @@ const fetchBooks = async (query) => {
 export const BestBook = () => {
   const { data, error, isLoading } = useQuery({
     queryKey: ["books", "best"],
-    queryFn: () => fetchBooks("best"),
+    queryFn: () => fetchBooks("web"),
   });
 
   if (isLoading) return <div>Loading...</div>;
