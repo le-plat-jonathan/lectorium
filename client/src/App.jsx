@@ -7,6 +7,7 @@ import { LoginFormPage } from "./pages/LoginForm";
 import { RootLayout } from "./pages/Root";
 import { SignupForm } from "./pages/SignupForm";
 import Librairie from "./pages/Librairie";
+import { CartProvider } from "./context/cartContext";
 
 const router = createBrowserRouter([
   {
@@ -31,8 +32,10 @@ const router = createBrowserRouter([
 
 export const App = () => {
   return (
-    <AuthProvider>
-      <RouterProvider router={router}></RouterProvider>
-    </AuthProvider>
+    <CartProvider>
+      <AuthProvider>
+        <RouterProvider router={router}></RouterProvider>
+      </AuthProvider>
+    </CartProvider>
   );
 };

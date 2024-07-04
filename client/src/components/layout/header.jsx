@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/logo.png";
@@ -5,9 +6,11 @@ import { Separator } from "../ui/separator";
 import { ButtonAuth } from "./auth/btn-auth";
 import { List } from "./list";
 import { SearchBar } from "./search-bar";
+import { useCart } from '../../context/cartContext';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { cartItems } = useCart();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -39,6 +42,16 @@ export const Header = () => {
             <div className="hidden md:flex items-center gap-4">
               <List />
               <ButtonAuth />
+              <div className="relative">
+                <Link to="/cart" className="hover:text-primary">
+                  <i className="ri-shopping-cart-line"></i>
+                  {cartItems.length > 0 && (
+                    <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full text-xs px-2">
+                      {cartItems.length}
+                    </span>
+                  )}
+                </Link>
+              </div>
             </div>
             <button className="md:hidden" onClick={toggleMenu}>
               <i className="ri-menu-line"></i>
@@ -61,6 +74,16 @@ export const Header = () => {
               <div className="flex items-center gap-4">
                 <List />
                 <ButtonAuth />
+                <div className="relative">
+                  <Link to="/cart" className="hover:text-primary">
+                    <i className="ri-shopping-cart-line"></i>
+                    {cartItems.length > 0 && (
+                      <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full text-xs px-2">
+                        {cartItems.length}
+                      </span>
+                    )}
+                  </Link>
+                </div>
               </div>
             </div>
           )}
