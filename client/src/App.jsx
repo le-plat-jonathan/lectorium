@@ -6,6 +6,7 @@ import { HomePage } from "./pages/Home";
 import { LoginFormPage } from "./pages/LoginForm";
 import { RootLayout } from "./pages/Root";
 import { SignupForm } from "./pages/SignupForm";
+import Librairie from "./pages/Librairie";
 
 const router = createBrowserRouter([
   {
@@ -16,9 +17,9 @@ const router = createBrowserRouter([
       { path: "/", element: <HomePage /> },
       { path: "auth/login", element: <LoginFormPage /> },
       { path: "auth/signup", element: <SignupForm /> },
+      { path: "librairie", element: <Librairie /> },
     ],
   },
-  ,
   {
     path: "/user",
     element: <RootLayout />,
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
 export const App = () => {
   return (
     <AuthProvider>
-      <RouterProvider router={router}></RouterProvider>;
+      <RouterProvider router={router}></RouterProvider>
     </AuthProvider>
   );
 };

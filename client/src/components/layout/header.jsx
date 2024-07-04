@@ -23,7 +23,7 @@ export const Header = () => {
               <Link className="hover:text-primary" to="/">
                 Accueil
               </Link>
-              <Link className="hover:text-primary" to="/recipes">
+              <Link className="hover:text-primary" to="/librairie">
                 Librairie
               </Link>
             </div>
@@ -49,7 +49,7 @@ export const Header = () => {
               <Link className="hover:text-primary" to="/">
                 Accueil
               </Link>
-              <Link className="hover:text-primary" to="/recipes">
+              <Link className="hover:text-primary" to="/librairie">
                 Librairie
               </Link>
               <a className="hover:text-primary" href="#who-we-are">
@@ -60,6 +60,7 @@ export const Header = () => {
               </a>
               <div className="flex items-center gap-4">
                 <List />
+                <ButtonAuth />
               </div>
             </div>
           )}
