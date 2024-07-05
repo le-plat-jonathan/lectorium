@@ -7,6 +7,10 @@ export const getSession = () => {
   return localStorage.getItem("user_id");
 };
 
+export const deleteSession = () => {
+  return localStorage.removeItem("user_id");
+};
+
 export const checkAuthLoader = () => {
   const token = getSession();
   if (!token) {
