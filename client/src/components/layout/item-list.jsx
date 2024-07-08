@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { MinusIcon, PlusIcon, TrashIcon } from "@radix-ui/react-icons";
 import { Button } from "../ui/button";
 
-export const ItemList = ({ item, onRemove }) => {
+export const ItemList = ({ item, onRemove, onUpdate }) => {
   const [quantity, setQuantity] = useState(item.quantity);
   const [isAside, setIsAside] = useState(item.aside);
 
@@ -67,6 +67,7 @@ export const ItemList = ({ item, onRemove }) => {
         const data = await response.json();
         console.log(data.message);
         setIsAside(true);
+        onUpdate(bookId, true);
       } else {
         console.error('Failed to update aside status');
       }
@@ -90,6 +91,7 @@ export const ItemList = ({ item, onRemove }) => {
         const data = await response.json();
         console.log(data.message);
         setIsAside(false);
+        onUpdate(bookId, false);
       } else {
         console.error('Failed to update aside status');
       }
@@ -121,13 +123,11 @@ export const ItemList = ({ item, onRemove }) => {
   };
 
   return (
-    <div className="flex-column items-center justify-between mb-3 p-4 border border-gray-400">
-
+    <div className="flex-column items-center justify-between mb-3 p-4 border border-gray-400 border-b-2 border-gray-500">
       <h3 className="text-lg font-semibold pb-4">{item.title}</h3>
-
       <div className='flex gap-4'>
         <img src={item.thumbnail} alt={item.title} className="w-40 h-40 mr-4" />
-        <div className="flex-column items-center">
+        <div className="flex-column items-center ">
           <div className='flex-column m-2'>
             <Button size="icon" variant="outline" onClick={handleReduceClick}>
               <MinusIcon className="h-4 w-4" />
@@ -144,7 +144,7 @@ export const ItemList = ({ item, onRemove }) => {
             variant="outline"
             onClick={isAside ? handleRemoveAside : handlePutAside}
           >
-            {isAside ? 'Remettre au panier' : 'Mettre de côté'}
+            {isAside ? 'Mettre au panier' : 'Mettre de côté'}
           </Button>
           <Button className="m-2" size="icon" variant="outline" onClick={handleRemoveItem}>
             <TrashIcon className="h-4 w-4" />

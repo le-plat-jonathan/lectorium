@@ -67,6 +67,14 @@ export const List = () => {
     setBookDetails((prevDetails) => prevDetails.filter(item => item.id !== bookId));
   };
 
+  const handleUpdateAside = (bookId, isAside) => {
+    setBookDetails((prevDetails) =>
+      prevDetails.map(item =>
+        item.id === bookId ? { ...item, aside: isAside } : item
+      ).sort((a, b) => a.aside - b.aside)
+    );
+  };
+
   return (
     <Sheet>
       <SheetTrigger>
@@ -80,7 +88,7 @@ export const List = () => {
           <SheetTitle>Panier :</SheetTitle>
           <SheetDescription>
             {bookDetails.length > 0 && bookDetails.map((item) => (
-              <ItemList key={item.book_id} item={item} onRemove={handleRemoveItem} />
+              <ItemList key={item.book_id} item={item} onRemove={handleRemoveItem} onUpdate={handleUpdateAside} />
             ))}
           </SheetDescription>
         </SheetHeader>
@@ -91,4 +99,3 @@ export const List = () => {
     </Sheet>
   );
 };
-  

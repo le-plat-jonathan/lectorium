@@ -8,6 +8,7 @@ import { RootLayout } from "./pages/Root";
 import { SignupForm } from "./pages/SignupForm";
 import Librairie from "./pages/Librairie";
 import { CartProvider } from "./context/cartContext";
+import { CreateBookPage } from "@/pages/createBookPage";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
       { path: "auth/login", element: <LoginFormPage /> },
       { path: "auth/signup", element: <SignupForm /> },
       { path: "librairie", element: <Librairie /> },
+      { path: "createBook", element: <CreateBookPage /> },
     ],
   },
   {

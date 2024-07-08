@@ -19,10 +19,13 @@ export const ButtonAuth = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     const token = getSession();
     setIsAuthenticated(!!token);
+    const userId = localStorage.getItem('user_id');
+    setIsAdmin(userId === '11');
   }, []);
 
   return !isAuthenticated ? (
@@ -44,6 +47,11 @@ export const ButtonAuth = () => {
         <DropdownMenuItem asChild>
           <Link to="/user">Mon compte</Link>
         </DropdownMenuItem>
+        {isAdmin && (
+          <DropdownMenuItem asChild>
+            <Link to="/createBook">Créer un livre</Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="hover:!bg-destructive"

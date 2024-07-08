@@ -6,6 +6,7 @@ include_once 'classes/User.php';
 include_once 'classes/Order.php';
 include_once 'classes/Cart.php';
 include_once 'classes/Rate.php';
+include_once 'classes/Book.php';
 
 // connexion à la BDD
 try {
@@ -26,6 +27,7 @@ $user = new User($pdo);
 $order = new Order($pdo);
 $cart = new Cart($pdo);
 $rate = new Rate($pdo);
+$book = new Book($pdo);
 
 // gestion des requêtes en fonction de la méthode
 switch ($request_method) {
@@ -48,7 +50,7 @@ switch ($request_method) {
 
 // gestion des requêtes POST
 function handlePostRequest($endpoint) {
-    global $user, $order, $cart, $rate;
+    global $user, $order, $cart, $rate, $book;
     $input = json_decode(file_get_contents('php://input'), true);
 
     switch ($endpoint) {
@@ -66,6 +68,9 @@ function handlePostRequest($endpoint) {
             break;
         case 'add_rate':
             echo json_encode($rate->addRate($input['book_id'], $input['user_id'], $input['rate']));
+            break;
+        case 'create_book':
+            echo json_encode($book->create($input['title'], $input['author'], $input['description'], $input['book_cover'], $input['genres']));
             break;
         default:
             echo json_encode(['message' => 'Invalid POST action.']);
@@ -135,10 +140,9 @@ function handleGetRequest($endpoint, $id) {
     }
 }
 
-
 // gestion des requêtes PUT
 function handlePutRequest($endpoint, $id) {
-    global $user, $order, $cart, $rate;
+    global $user, $order, $cart, $rate, $book;
     $input = json_decode(file_get_contents('php://input'), true);
 
     switch ($endpoint) {
@@ -157,6 +161,9 @@ function handlePutRequest($endpoint, $id) {
         case 'update_rate':
             echo json_encode($rate->updateRate($id, $input['rate']));
             break;
+        case 'update_book':
+            echo json_encode($book->update($id, $input['title'], $input['author'], $input['description'], $input['book_cover'], $input['genres']));
+            break;
         default:
             echo json_encode(['message' => 'Invalid PUT action.']);
             break;
@@ -165,7 +172,7 @@ function handlePutRequest($endpoint, $id) {
 
 // gestion des requêtes DELETE
 function handleDeleteRequest($endpoint, $id) {
-    global $user, $order, $cart, $rate;
+    global $user, $order, $cart, $rate, $book;
 
     switch ($endpoint) {
         case 'delete_user':
@@ -176,6 +183,9 @@ function handleDeleteRequest($endpoint, $id) {
             break;
         case 'remove_rate':
             echo json_encode($rate->removeRate($id));
+            break;
+        case 'delete_book':
+            echo json_encode($book->delete($id));
             break;
         default:
             echo json_encode(['message' => 'Invalid DELETE action.']);
