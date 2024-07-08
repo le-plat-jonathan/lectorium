@@ -3,7 +3,7 @@ import ListProduct from "../product/list-product";
 
 const fetchBooks = async (query) => {
   const response = await fetch(
-    `https://www.googleapis.com/books/v1/volumes?q=intitle:${query}&maxResults=12&key=AIzaSyAmJjDBjk107C8ol7r8VDvgTsdkOitLJA0`
+    `https://www.googleapis.com/books/v1/volumes?q=intitle:${query}&maxResults=8&key=AIzaSyAmJjDBjk107C8ol7r8VDvgTsdkOitLJA0`
   );
   if (!response.ok) {
     throw new Error("Network response was not ok");

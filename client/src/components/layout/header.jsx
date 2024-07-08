@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/logo.png";
@@ -5,9 +6,12 @@ import { Separator } from "../ui/separator";
 import { ButtonAuth } from "./auth/btn-auth";
 import { List } from "./list";
 import { SearchBar } from "./search-bar";
+import { useCart } from '../../context/cartContext';
+import { ScrollToTopButton } from '../ui/scrollToTopButton';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { cartItems } = useCart();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -15,7 +19,7 @@ export const Header = () => {
 
   return (
     <>
-      <header className="sticky z-20 left-0 right-0 top-0 bg-background">
+      <header id="top" className="sticky z-20 left-0 right-0 top-0 bg-background">
         <div className="container mx-auto p-4">
           <div className="flex justify-between items-center">
             <SearchBar />
@@ -23,7 +27,7 @@ export const Header = () => {
               <Link className="hover:text-primary" to="/">
                 Accueil
               </Link>
-              <Link className="hover:text-primary" to="/recipes">
+              <Link className="hover:text-primary" to="/librairie">
                 Librairie
               </Link>
             </div>
@@ -39,6 +43,16 @@ export const Header = () => {
             <div className="hidden md:flex items-center gap-4">
               <List />
               <ButtonAuth />
+              {/* <div className="relative">
+                <Link to="/cart" className="hover:text-primary">
+                  <i className="ri-shopping-cart-line"></i>
+                  {cartItems.length > 0 && (
+                    <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full text-xs px-2">
+                      {cartItems.length}
+                    </span>
+                  )}
+                </Link>
+              </div> */}
             </div>
             <button className="md:hidden" onClick={toggleMenu}>
               <i className="ri-menu-line"></i>
@@ -49,7 +63,7 @@ export const Header = () => {
               <Link className="hover:text-primary" to="/">
                 Accueil
               </Link>
-              <Link className="hover:text-primary" to="/recipes">
+              <Link className="hover:text-primary" to="/librairie">
                 Librairie
               </Link>
               <a className="hover:text-primary" href="#who-we-are">
@@ -60,12 +74,24 @@ export const Header = () => {
               </a>
               <div className="flex items-center gap-4">
                 <List />
+                <ButtonAuth />
+                {/* <div className="relative">
+                  <Link to="/cart" className="hover:text-primary">
+                    <i className="ri-shopping-cart-line"></i>
+                    {cartItems.length > 0 && (
+                      <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full text-xs px-2">
+                        {cartItems.length}
+                      </span>
+                    )}
+                  </Link>
+                </div> */}
               </div>
             </div>
           )}
         </div>
         <Separator />
       </header>
+      <ScrollToTopButton /> {/* Ajout du bouton ici */}
     </>
   );
 };

@@ -54,7 +54,7 @@ function handlePostRequest($endpoint) {
     switch ($endpoint) {
         case 'register':
             echo json_encode($user->create($input['email'], $input['password'], $input['firstname'], $input['lastname'], $input['address'], $input['zip_code'], $input['city']));
-            break;
+            break;  
         case 'login':
             echo json_encode(handleLoginRequest($input['email'], $input['password']));
             break;

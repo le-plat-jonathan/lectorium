@@ -121,35 +121,40 @@ export const ItemList = ({ item, onRemove }) => {
   };
 
   return (
-    <div className="flex items-center justify-between mb-3 p-4 border border-gray-400">
-      <img src={item.thumbnail} alt={item.title} className="w-16 h-16 mr-4" />
-      <div className="flex-column items-center gap-2">
-        <div>
-          <h3 className="text-lg font-semibold">{item.title}</h3>
-          <p className="text-sm text-muted-foreground">{item.categories.join(', ')}</p>
+    <div className="flex-column items-center justify-between mb-3 p-4 border border-gray-400">
+
+      <h3 className="text-lg font-semibold pb-4">{item.title}</h3>
+
+      <div className='flex gap-4'>
+        <img src={item.thumbnail} alt={item.title} className="w-40 h-40 mr-4" />
+        <div className="flex-column items-center">
+          <div className='flex-column m-2'>
+            <Button size="icon" variant="outline" onClick={handleReduceClick}>
+              <MinusIcon className="h-4 w-4" />
+              <span className="sr-only">Réduire la quantité</span>
+            </Button>
+            <span className='m-2'>{quantity}</span>
+            <Button size="icon" variant="outline" onClick={handleIncreaseClick}>
+              <PlusIcon className="h-4 w-4" />
+              <span className="sr-only">Augmenter la quantité</span>
+            </Button>
+          </div>
+          <Button
+            className="m-2"
+            variant="outline"
+            onClick={isAside ? handleRemoveAside : handlePutAside}
+          >
+            {isAside ? 'Remettre au panier' : 'Mettre de côté'}
+          </Button>
+          <Button className="m-2" size="icon" variant="outline" onClick={handleRemoveItem}>
+            <TrashIcon className="h-4 w-4" />
+            <span className="sr-only">Supprimer l'article</span>
+          </Button>
+          <div className="flex-column items-center mt-2">
+            <p className="text-sm text-muted-foreground">{item.categories.join(', ')}</p>
+            <p className="text-lg font-semibold">{item.price}€</p>
+          </div>
         </div>
-        <p className="ml-4 text-lg font-semibold">{item.price}€</p>
-      </div>
-      <div className="flex-column items-center gap-2">
-        <Button size="icon" variant="outline" onClick={handleReduceClick}>
-          <MinusIcon className="h-4 w-4" />
-          <span className="sr-only">Réduire la quantité</span>
-        </Button>
-        <span>{quantity}</span>
-        <Button size="icon" variant="outline" onClick={handleIncreaseClick}>
-          <PlusIcon className="h-4 w-4" />
-          <span className="sr-only">Augmenter la quantité</span>
-        </Button>
-        <Button
-          variant="outline"
-          onClick={isAside ? handleRemoveAside : handlePutAside}
-        >
-          {isAside ? 'Remettre au panier' : 'Mettre de côté'}
-        </Button>
-        <Button size="icon" variant="outline" onClick={handleRemoveItem}>
-          <TrashIcon className="h-4 w-4" />
-          <span className="sr-only">Supprimer l'article</span>
-        </Button>
       </div>
     </div>
   );

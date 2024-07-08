@@ -6,19 +6,32 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Link } from "react-router-dom";
+import { AuthContext } from "@/context/auth.context";
+import { getSession } from "@/utils/auth";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+const deleteSession = () => {
+  localStorage.removeItem('user_id');
+};
 
 export const ButtonAuth = () => {
-  // const { login, authError } = useContext(AuthContext);
-  // console.log(authError);
-  const authError = true;
-  return !authError ? (
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = getSession();
+    setIsAuthenticated(!!token);
+  }, []);
+
+  return !isAuthenticated ? (
     <Link
       to={"/auth/login"}
       className={buttonVariants({ variant: "outline" })}
       onClick={login}
     >
-      Login
+      Se connecter
     </Link>
   ) : (
     <DropdownMenu>
@@ -29,16 +42,18 @@ export const ButtonAuth = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem asChild>
-          <Link to="/user">Account</Link>
+          <Link to="/user">Mon compte</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <DropdownMenuItem
-            className="hover:!bg-destructive"
-            onClick={async () => deleteSession()}
-          >
-            Logout
-          </DropdownMenuItem>
+        <DropdownMenuItem
+          className="hover:!bg-destructive"
+          onClick={() => {
+            deleteSession();
+            setIsAuthenticated(false);
+            navigate("/");
+          }}
+        >
+          Se déconnecter
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
